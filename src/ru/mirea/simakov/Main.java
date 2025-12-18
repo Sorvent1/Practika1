@@ -3,65 +3,73 @@ package ru.mirea.simakov;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        System.out.println("Hello world");
-        String msg = new String();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Задание 1");
-        System.out.println("Введите размер массива: ");
-        int[] array = new int[scanner.nextInt()];
-        System.out.println("Заполните массив: ");
-        int sum = 0;
-        for (int i = 0; i < array.length; i++) {
-            array[i] = scanner.nextInt();
-            sum += array[i];
-        }
-        System.out.println("Сумма элементов массива: " + sum + " Среднее арифметическое: " + sum / array.length);
-        sum = 0;
-        System.out.println("Задание 2");
-        System.out.println("Введите размер массива: ");
-        int[] array2 = new int[scanner.nextInt()];
-        System.out.println("Заполните массив: ");
-        for (int i = 0; i < array2.length; i++){
-            array2[i] = scanner.nextInt();
-        }
-        int count = 0;
-        int minn = 100000;
-        int maxn = -100000;
-        while (count < array2.length){
-            sum += array2[count];
-            if (minn > array2[count]){
-                minn = array2[count];
-            }
-            if (maxn < array2[count]){
-                maxn = array2[count];
-            }
-            count++;
-        }
-        System.out.println("Сумма элементов: " + sum + " Минимальное значение: " + minn + " Максимальное значение: " + maxn);
-        System.out.println("Задание 3");
-        for (int i = 0; i < args.length; i++) {
-            System.out.println(args[i]);
-        }
-        System.out.println("Задание 4");
-        double sum2 = 0.0;
-        double term = 0.0;
-        for (int i = 1; i <= 10; i++) {
-            term = 1.0 / i;
-            sum2 += term;
-            System.out.printf("%d\t1/%d\t\t%.5f%n", i, i, term);
-        }
-        System.out.println("Задание 5");
-        System.out.println("Введите число: ");
-        int n = scanner.nextInt();
-        System.out.println("Факториал " + n + " = " + Factorial(n));
+        System.out.println("Задание 13");
+        printOddIndex(1);
+
+        System.out.println("Задание 14");
+        System.out.print("Введите число: ");
+        int n14 = scanner.nextInt();
+        printDigitsLeft(n14);
+        System.out.println();
+
+        System.out.println("Задание 15");
+        System.out.print("Введите число: ");
+        int n15 = scanner.nextInt();
+        printDigitsRight(n15);
+        System.out.println();
+
+        System.out.println("Задание 16");
+        int[] res = maxAndCount();
+        System.out.println("Максимум: " + res[0]);
+        System.out.println("Количество: " + res[1]);
+
+        System.out.println("Задание 17");
+        int max = findMax();
+        System.out.println("Максимум: " + max);
     }
 
-    public static long Factorial(int num) {
-        long result = 1;
-        for (int i = 1; i <= num; i++) {
-            result *= i;
+    static void printOddIndex(int pos) {
+        int x = scanner.nextInt();
+        if (x == 0) return;
+        if (pos % 2 == 1) System.out.println(x);
+        printOddIndex(pos + 1);
+    }
+
+    static void printDigitsLeft(int n) {
+        if (n < 10) {
+            System.out.print(n + " ");
+            return;
         }
-        return result;
+        printDigitsLeft(n / 10);
+        System.out.print(n % 10 + " ");
+    }
+
+    static void printDigitsRight(int n) {
+        if (n < 10) {
+            System.out.print(n + " ");
+            return;
+        }
+        System.out.print(n % 10 + " ");
+        printDigitsRight(n / 10);
+    }
+
+    static int[] maxAndCount() {
+        int x = scanner.nextInt();
+        if (x == 0) return new int[]{0, 0};
+
+        int[] next = maxAndCount();
+
+        if (x > next[0]) return new int[]{x, 1};
+        if (x == next[0]) return new int[]{next[0], next[1] + 1};
+        return next;
+    }
+
+    static int findMax() {
+        int x = scanner.nextInt();
+        if (x == 0) return 0;
+        int m = findMax();
+        return Math.max(x, m);
     }
 }
